@@ -1,5 +1,5 @@
-import pkg from './package.json'
 import rpi_jsy from 'rollup-plugin-jsy-lite'
+import pkg from './package.json'
 const pkg_name = pkg.name.replace('-', '_')
 
 const configs = []
@@ -18,6 +18,7 @@ plugins_min.push(rpi_terser({}))
 
 
 add_jsy('index', true)
+add_jsy('base2')
 add_jsy('hex')
 add_jsy('base64')
 add_jsy('utf8')

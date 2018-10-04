@@ -1,3 +1,4 @@
+import './unit/base2.jsy'
 import './unit/hex.jsy'
 import './unit/base64.jsy'
 import './unit/utf8.jsy'

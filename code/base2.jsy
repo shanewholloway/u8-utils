@@ -1,0 +1,16 @@
+export function u8_to_base2(u8, sep) ::
+  if undefined === u8.buffer ::
+    u8 = new Uint8Array(u8)
+
+  return Array
+    .from @ u8, v => v.toString(2).padStart(8, '0')
+    .join @ null != sep ? sep : ''
+
+
+export function base2_to_u8(bits) ::
+  bits = bits.replace(/[^01]/g, '')
+  const u8 = new Uint8Array(bits.length >> 3)
+  for let i=0, i2=0; i<u8.length; i++, i2+=8 ::
+    u8[i] = parseInt @ bits.slice(i2, i2+8), 2
+  return u8
+

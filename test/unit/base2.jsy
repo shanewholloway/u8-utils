@@ -1,0 +1,14 @@
+const { assert } = require('chai')
+const { u8_to_base2, base2_to_u8 } = require('u8-utils')
+
+describe @ 'base2', @=> ::
+  const tc_u8 = new Uint8Array([75,245,231,251,102,40,5,58,69,131,9,108,85,174,67,161,207,139,2,3])
+  const tc_base2 = '01001011 11110101 11100111 11111011 01100110 00101000 00000101 00111010 01000101 10000011 00001001 01101100 01010101 10101110 01000011 10100001 11001111 10001011 00000010 00000011'
+
+  it @ 'u8_to_base2', @=> ::
+    const base2 = u8_to_base2(tc_u8, ' ')
+    assert.equal(tc_base2, base2)
+
+  it @ 'base2_to_u8', @=> ::
+    const u8 = base2_to_u8(tc_base2)
+    assert.deepEqual(tc_u8, u8)
