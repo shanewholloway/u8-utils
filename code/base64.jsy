@@ -1,0 +1,14 @@
+#IF PLAT_NODEJS
+  import { u8_to_base64 } from './nodejs/base64.jsy'
+  export * from './nodejs/base64.jsy'
+
+#ELIF PLAT_WEB
+  import { u8_to_base64 } from './web/base64.jsy'
+  export * from './web/base64.jsy'
+
+export function u8_to_base64url(u8) ::
+  return u8_to_base64(u8)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=/g, '')
+

@@ -1,0 +1,24 @@
+const { assert } = require('chai')
+const { u8_to_base64, u8_to_base64url, base64_to_u8 } = require('u8-utils')
+
+describe @ 'base64', @=> ::
+  const tc_u8 = new Uint8Array([75,245,231,251,102,40,5,58,69,131,9,108,85,174,67,161,207,139,2,3])
+  const tc_b64 = 'S/Xn+2YoBTpFgwlsVa5Doc+LAgM='
+  const tc_b64url = 'S_Xn-2YoBTpFgwlsVa5Doc-LAgM'
+
+  it @ 'u8_to_base64', @=> ::
+    const b64 = u8_to_base64(tc_u8)
+    assert.equal(tc_b64, b64)
+
+  it @ 'u8_to_base64url', @=> ::
+    const b64url = u8_to_base64url(tc_u8)
+    assert.equal(tc_b64url, b64url)
+
+  it @ 'base64_to_u8', @=> ::
+    const u8 = base64_to_u8(tc_b64)
+    assert.deepEqual(tc_u8, u8)
+
+  it @ 'base64_to_u8 with url encoding', @=> ::
+    const u8 = base64_to_u8(tc_b64url)
+    assert.deepEqual(tc_u8, u8)
+

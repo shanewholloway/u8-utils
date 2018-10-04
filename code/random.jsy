@@ -1,0 +1,6 @@
+#IF PLAT_NODEJS
+  export * from './nodejs/random.jsy'
+
+#ELIF PLAT_WEB
+  export * from './web/random.jsy'
+

@@ -1,0 +1,30 @@
+const { assert } = require('chai')
+const { u8_random, u8_randomFill } = require('u8-utils')
+
+const { u8_to_hex, u8_to_base64, u8_to_base64url } = require('u8-utils')
+
+describe @ 'random', @=> ::
+  if 0 :: generate_testcase_data()
+
+  it @ 'u8_random', @=> ::
+    const u8 = u8_random(20)
+    assert.equal @ 20, u8.byteLength
+
+  it @ 'u8_randomFill', @=> ::
+    const u8_src = new Uint8Array(25)
+    const u8 = u8_randomFill(u8_src)
+
+    assert.equal @ 25, u8.byteLength
+    assert.equal @ u8_src, u8
+
+
+function generate_testcase_data() ::
+  const u8 = u8_random(20)
+
+  console.log()
+  console.log @ `    const tc_u8 = new Uint8Array(${JSON.stringify(Array.from(u8))})`
+  console.log @ `    const tc_hex = '${u8_to_hex(u8)}'`
+  console.log @ `    const tc_b64 = '${u8_to_base64(u8)}'`
+  console.log @ `    const tc_b64url = '${u8_to_base64url(u8)}'`
+  console.log()
+

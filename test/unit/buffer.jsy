@@ -1,0 +1,28 @@
+const { assert } = require('chai')
+const { as_u8_buffer, u8_concat } = require('u8-utils')
+
+describe @ 'buffer', @=> ::
+  const tc_u8_list = @[]
+    new Uint8Array([75,245,231,251,102,40,5,58,69,131,9,108,85,174,67,161,207,139,2,3])
+    new Uint8Array([131,142,158,33,212,162,200,156,178,87,224,95,108,159,116,109,48,8,19,138])
+    new Uint8Array([41,100,255,7,64,210,195,4,4,140,3,14,22,162,164,137,120,174,137,9])
+
+  it @ 'as_u8_buffer from u8', @=> ::
+    const u8 = as_u8_buffer @ tc_u8_list[0]
+    assert.ok @ u8 instanceof Uint8Array
+    assert.equal @ u8, tc_u8_list[0]
+
+  it @ 'as_u8_buffer from ArrayBuffer', @=> ::
+    const u8 = as_u8_buffer @ tc_u8_list[1].buffer
+    assert.ok @ u8 instanceof Uint8Array
+    assert.notEqual @ u8, tc_u8_list[1]
+    assert.deepEqual @ u8, tc_u8_list[1]
+
+  it @ 'u8_concat', @=> ::
+    const total_len = tc_u8_list.reduce @
+      (s, u8) => s + u8.byteLength
+      0
+
+    const u8 = u8_concat(tc_u8_list)
+    assert.equal @ total_len, u8.byteLength
+

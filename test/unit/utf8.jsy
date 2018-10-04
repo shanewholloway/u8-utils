@@ -1,0 +1,44 @@
+const { assert } = require('chai')
+const { u8_to_utf8, utf8_to_u8, utf8_to_u8_nfkc } = require('u8-utils')
+
+describe @ 'utf8', @=> ::
+  const test_cases = @[]
+    @[] 'javascript', new Uint8Array @# 106, 97, 118, 97, 115, 99, 114, 105, 112, 116
+
+    @[] 'ü', new Uint8Array @# 195, 188
+
+    @[] '水', new Uint8Array @# 230, 176, 180
+
+    @[] '𐅑', new Uint8Array @# 240, 144, 133, 145
+
+    @[] '\u1E9B\u0323'
+        new Uint8Array @# 225, 186, 155, 204, 163
+        new Uint8Array @# 225, 185, 169
+        @{} NFC: new Uint8Array @# 225, 186, 155, 204, 163
+            NFD: new Uint8Array @# 197, 191, 204, 163, 204, 135
+            NFKC: new Uint8Array @# 225, 185, 169
+            NFKD: new Uint8Array @# 115, 204, 163, 204, 135
+
+
+  for const [tc_utf8, tc_u8, tc_u8_nfkc, tc_norms] of test_cases ::
+
+    describe @ tc_norms ? `with "${tc_utf8}" using normalization` : `with "${tc_utf8}"`, @=> ::
+      it @ `u8_to_utf8`, @=> ::
+        const utf8 = u8_to_utf8(tc_u8)
+        assert.equal(tc_utf8, utf8)
+
+      it @ `utf8_to_u8`, @=> ::
+        const u8 = utf8_to_u8(tc_utf8)
+        assert.deepEqual(tc_u8, u8)
+
+      it @ `utf8_to_u8_nfkc`, @=> ::
+        const u8 = utf8_to_u8_nfkc(tc_utf8)
+        assert.deepEqual(tc_u8_nfkc || tc_u8, u8)
+
+      if tc_norms ::
+        for const [norm, tc_u8_norm] of Object.entries(tc_norms) ::
+          it @ `utf8_to_u8 using ${norm}`, @=> ::
+            const utf8_norm = tc_utf8.normalize(norm)
+            const u8 = utf8_to_u8(utf8_norm)
+            assert.deepEqual(tc_u8_norm, u8)
+

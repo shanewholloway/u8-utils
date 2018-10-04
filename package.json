@@ -1,0 +1,40 @@
+{
+  "name": "u8-utils",
+  "version": "0.0.0",
+  "description": "Uint8Array + UTF8 string utility library for NodeJS and the Web",
+  "license": "BSD-2-Clause",
+  "author": "Shane Holloway <shane.holloway@ieee.org>",
+  "homepage": "https://github.com/shanewholloway/js-u8-utils#readme",
+  "bugs": {
+    "url": "https://github.com/shanewholloway/js-u8-utils/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/shanewholloway/js-u8-utils.git"
+  },
+  "files": [
+    "cjs/",
+    "esm/",
+    "umd/"
+  ],
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "browser": "umd/index.min.js",
+  "dependencies": {},
+  "devDependencies": {
+    "jsy-transpile": "^0.4.0",
+    "rollup": "^0.66.3",
+    "rollup-plugin-jsy-lite": "^1.3.0",
+    "rollup-plugin-terser": "^3.0.0"
+  },
+  "scripts": {
+    "clean": "rm -rf ./cjs/* ./esm/* ./umd/*",
+    "build": "rollup --config",
+    "watch": "npm -s run build -- --watch",
+    "pretest": "npm -s run build",
+    "test": "cd test; npm -s run test",
+    "test:install": "cd test; npm -s install",
+    "test:one": "cd test; npm -s run test:one",
+    "test:watch": "cd test; npm -s run test:watch"
+  }
+}
