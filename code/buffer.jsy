@@ -1,5 +1,9 @@
 
 export function as_u8_buffer(u8) ::
+  #IF PLAT_NODEJS
+    if Buffer.isBuffer(u8) ::
+      return new Uint8Array(u8)
+
   if u8 instanceof Uint8Array ::
     return u8
   if ArrayBuffer.isView(u8) ::

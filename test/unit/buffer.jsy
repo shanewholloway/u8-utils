@@ -7,6 +7,15 @@ describe @ 'buffer', @=> ::
     new Uint8Array([131,142,158,33,212,162,200,156,178,87,224,95,108,159,116,109,48,8,19,138])
     new Uint8Array([41,100,255,7,64,210,195,4,4,140,3,14,22,162,164,137,120,174,137,9])
 
+  #IF PLAT_NODEJS
+    it @ 'as_u8_buffer from Buffer', @=> ::
+      const buf = Buffer.from @ 'a test of Buffer'
+      const u8 = as_u8_buffer @ buf
+
+      assert.notEqual @ u8, buf
+      assert.ok @ ! Buffer.isBuffer(u8)
+      assert.ok @ u8 instanceof Uint8Array
+
   it @ 'as_u8_buffer from u8', @=> ::
     const u8 = as_u8_buffer @ tc_u8_list[0]
     assert.ok @ u8 instanceof Uint8Array
