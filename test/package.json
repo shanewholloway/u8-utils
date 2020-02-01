@@ -1,18 +1,19 @@
 {
   "private": true,
   "dependencies": {
-    "u8-utils": "file:.."
+    "u8-utils": "file:..",
+    "chai": "^4.2.0",
+    "mocha": "^7.0.1"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
-    "rollup": "^0.66.3",
-    "rollup-plugin-commonjs": "^9.1.5",
-    "rollup-plugin-node-resolve": "^3.3.0"
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "rollup": "^1.31.0",
+    "rollup-plugin-jsy-lite": "^1.5.1"
   },
   "scripts": {
     "prebuild": "test -d ./node_modules || npm -s install",
     "build": "rollup --config",
+    "clean": "rm ./__unittest.*",
     "watch": "npm -s run build -- --watch",
     "pretest": "npm -s run build",
     "test": "npm -s run test:one",

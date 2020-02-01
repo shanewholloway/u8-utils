@@ -1,6 +1,6 @@
 {
   "name": "u8-utils",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Uint8Array + UTF8 string utility library for NodeJS and the Web",
   "license": "BSD-2-Clause",
   "author": "Shane Holloway <shane.holloway@ieee.org>",
@@ -14,6 +14,7 @@
   },
   "files": [
     "cjs/",
+    "code/",
     "esm/",
     "umd/"
   ],
@@ -22,10 +23,10 @@
   "browser": "umd/index.min.js",
   "dependencies": {},
   "devDependencies": {
-    "jsy-transpile": "^0.4.0",
-    "rollup": "^0.66.3",
-    "rollup-plugin-jsy-lite": "^1.3.0",
-    "rollup-plugin-terser": "^3.0.0"
+    "jsy-transpile": "^0.6.4",
+    "rollup": "^1.31.0",
+    "rollup-plugin-jsy-lite": "^1.5.1",
+    "rollup-plugin-terser": "^5.2.0"
   },
   "scripts": {
     "clean": "rm -rf ./cjs/* ./esm/* ./umd/*",
