@@ -39,8 +39,8 @@ function add_jsy(src_name, module_name) {
       input: `code/${src_name}.jsy`,
       plugins: plugins_nodejs, external,
       output: [
-        { file: `cjs/${src_name}.js`, format: 'cjs', exports:'named', sourcemap },
-        { file: `esm/${src_name}.js`, format: 'es', sourcemap } ]})
+        { file: `cjs/${src_name}.cjs`, format: 'cjs', exports:'named', sourcemap },
+        { file: `esm/${src_name}.mjs`, format: 'es', sourcemap } ]})
 
   if (plugins_web)
     configs.push({
