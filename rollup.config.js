@@ -17,7 +17,7 @@ const plugins_nodejs = [
 const plugins_web = [
   rpi_jsy({defines: {PLAT_WEB: true}}),
   ... plugins ]
-const plugins_min = null && [
+const plugins_min = [
   ... plugins_web,
   rpi_terser({}) ]
 
