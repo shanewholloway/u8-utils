@@ -11,6 +11,9 @@ const sourcemap = true
 const external = []
 
 const plugins = []
+const plugins_generic = [
+  rpi_jsy({defines: {}}),
+  ... plugins ]
 const plugins_nodejs = [
   rpi_jsy({defines: {PLAT_NODEJS: true}}),
   ... plugins ]
@@ -22,17 +25,23 @@ const plugins_min = [
   rpi_terser({}) ]
 
 
-add_jsy('index', pkg_name)
+add_jsy('index', {module_name: pkg_name})
 add_jsy('base2')
 add_jsy('hex')
 add_jsy('base64')
 add_jsy('utf8')
-add_jsy('random')
+add_jsy('random', {skip_generic: true})
 add_jsy('buffer')
 
 
-function add_jsy(src_name, module_name) {
-  if (!module_name) module_name = `${pkg_name}_${src_name}`
+function add_jsy(src_name, opt={}) {
+  let module_name = opt.module_name || `${pkg_name}_${src_name}`
+
+  if (plugins_generic && !opt.skip_generic)
+    configs.push({
+      input: `code/${src_name}.jsy`,
+      plugins: plugins_generic,
+      output: { file: `esm/${src_name}.mjs`, format: 'es', sourcemap }})
 
   if (plugins_nodejs)
     configs.push({
@@ -40,7 +49,7 @@ function add_jsy(src_name, module_name) {
       plugins: plugins_nodejs, external,
       output: [
         { file: `cjs/${src_name}.cjs`, format: 'cjs', exports:'named', sourcemap },
-        { file: `esm/${src_name}.mjs`, format: 'es', sourcemap } ]})
+        { file: `esm/node/${src_name}.mjs`, format: 'es', sourcemap } ]})
 
   if (plugins_web)
     configs.push({
