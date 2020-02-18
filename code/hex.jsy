@@ -1,10 +1,19 @@
+const _lut_u8hex = Array.from @ Array(256),
+  (_, v) => v.toString(16).padStart(2, '0')
+
 export function u8_to_hex(u8, sep) ::
   if undefined === u8.buffer ::
     u8 = new Uint8Array(u8)
+  
+  let s = ''
+  sep = null==sep ? '' : ''+sep
 
-  return Array
-    .from @ u8, v => v.toString(16).padStart(2, '0')
-    .join @ null != sep ? sep : ''
+  // 20x faster than Array.from/.map impl
+  for const v of u8 ::
+    s += _lut_u8hex[v & 0xff]
+    s += sep
+
+  return sep.length ? s.slice(0, -sep.length) : s
 
 
 export function hex_to_u8(hex) ::

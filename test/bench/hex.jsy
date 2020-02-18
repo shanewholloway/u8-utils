@@ -1,0 +1,134 @@
+import {u8_random} from '../../code/random.jsy'
+
+
+const suite = require('benchmark').Suite()
+
+const barrage = @[]
+  u8_random(16)
+  u8_random(24)
+  u8_random(32)
+  u8_random(48)
+  u8_random(64)
+
+suite.add @ 'Baseline', @::
+  for const each of barrage ::
+    u8_to_hex(each)
+
+
+suite.add @ 'Array Join A', @::
+  for const each of barrage ::
+    u8_to_hex__ajoin(each)
+
+suite.add @ 'Array Join B', @::
+  for const each of barrage ::
+    u8_to_hex__ajoin_B(each)
+
+
+suite.add @ 'Str Concat A', @::
+  for const each of barrage ::
+    u8_to_hex__str(each)
+
+suite.add @ 'Str Concat B', @::
+  for const each of barrage ::
+    u8_to_hex__str_B(each)
+
+suite.add @ 'Str Concat C', @::
+  for const each of barrage ::
+    u8_to_hex__str_C(each)
+
+suite.add @ 'Str Concat BB', @::
+  for const each of barrage ::
+    u8_to_hex__str_B(each)
+
+suite.add @ 'Str Concat CC', @::
+  for const each of barrage ::
+    u8_to_hex__str_C(each)
+
+#IF PLAT_NODEJS
+  suite.add @ 'NodeJS to Hex', @::
+    for const each of barrage ::
+      buffer_to_hex(each)
+
+
+function u8_to_hex(u8, sep) ::
+  if undefined === u8.buffer ::
+    u8 = new Uint8Array(u8)
+
+  return Array
+    .from @ u8, v => v.toString(16).padStart(2, '0')
+    .join @ null != sep ? sep : ''
+
+function buffer_to_hex(u8) ::
+  return Buffer.from(u8).toString('hex')
+
+
+const _lut_u8hex = Array.from @ Array(256),
+  (_,v) => v.toString(16).padStart(2, '0')
+
+function u8_to_hex__ajoin(u8, sep) ::
+  if undefined === u8.buffer ::
+    u8 = new Uint8Array(u8)
+
+  return Array
+    .from @ u8, v => _lut_u8hex[v]
+    .join @ null != sep ? sep : ''
+
+
+function u8_to_hex__ajoin_B(u8, sep) ::
+  if undefined === u8.buffer ::
+    u8 = new Uint8Array(u8)
+
+  return Array
+    .from @ u8, v => _lut_u8hex[v & 0xff]
+    .join @ null != sep ? sep : ''
+
+
+function u8_to_hex__str(u8, sep) ::
+  if undefined === u8.buffer ::
+    u8 = new Uint8Array(u8)
+  
+  let s = ''
+  if sep ::
+    for const v of u8 ::
+      s += _lut_u8hex[v]
+      s += sep
+  else ::
+    for const v of u8 ::
+      s += _lut_u8hex[v]
+  return s
+
+function u8_to_hex__str_B(u8, sep) ::
+  if undefined === u8.buffer ::
+    u8 = new Uint8Array(u8)
+  
+  let s = ''
+  if sep ::
+    for const v of u8 ::
+      s += _lut_u8hex[v&0xff]
+      s += sep
+  else ::
+    for const v of u8 ::
+      s += _lut_u8hex[v&0xff]
+  return s
+
+function u8_to_hex__str_C(u8, sep) ::
+  if undefined === u8.buffer ::
+    u8 = new Uint8Array(u8)
+  
+  sep = null==sep ? '' : ''+sep
+
+  let s = ''
+  for const v of u8 ::
+    s += _lut_u8hex[v&0xff]
+    s += sep
+  return s
+
+
+suite.on @ 'cycle', @\ event ::
+  console.log @ `${event.target}`
+
+suite.on @ 'complete', @::
+  console.log @ 'Fastest is ' + suite.filter('fastest').map('name')
+
+suite.run()
+

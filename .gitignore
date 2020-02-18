@@ -2,6 +2,7 @@ cjs/
 esm/
 umd/
 dist/
+iife/
 node_modules/
 npm-debug.log
 .hggitignore
