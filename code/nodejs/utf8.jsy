@@ -1,5 +1,0 @@
-export function u8_to_utf8(u8) ::
-  return Buffer.from(u8).toString('utf-8')
-
-export function utf8_to_u8(utf8) ::
-  return Uint8Array.from @ Buffer.from(utf8, 'utf-8')

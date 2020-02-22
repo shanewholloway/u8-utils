@@ -1,10 +1,8 @@
-#IF PLAT_NODEJS
-  import { utf8_to_u8 } from './nodejs/utf8.jsy'
-  export * from './nodejs/utf8.jsy'
+export function u8_to_utf8(u8) ::
+  return new TextDecoder('utf-8').decode @ u8
 
-#ELIF PLAT_WEB
-  import { utf8_to_u8 } from './web/utf8.jsy'
-  export * from './web/utf8.jsy'
+export function utf8_to_u8(utf8) ::
+  return new TextEncoder('utf-8').encode @ utf8
 
 export function utf8_to_u8_nfkc(utf8) ::
   return utf8_to_u8 @ utf8.normalize('NFKC')
