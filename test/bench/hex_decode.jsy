@@ -64,7 +64,7 @@ function hex_to_u8_baseline(hex) ::
 
 function hex_to_u8_noop(hex) ::
   hex = hex.replace(/\W|_/g, '')
-  if 2 & hex.length ::
+  if 1 & hex.length ::
     hex = '0'+hex // pad odd-length
 
   const len = hex.length >> 1
@@ -85,7 +85,7 @@ const _lut_hex_high = @{}
 
 function hex_to_u8_lut(hex) ::
   hex = hex.replace(/\W|_/g, '')
-  if 2 & hex.length ::
+  if 1 & hex.length ::
     hex = '0'+hex // pad odd-length
 
   const len = hex.length >> 1
@@ -96,7 +96,7 @@ function hex_to_u8_lut(hex) ::
 
 function hex_to_u8_lut_opt(hex) ::
   hex = hex.replace(/\W|_/g, '')
-  if 2 & hex.length ::
+  if 1 & hex.length ::
     hex = '0'+hex // pad odd-length
 
   const hlen = hex.length, u8 = new Uint8Array(hlen>>1)
@@ -108,7 +108,7 @@ function hex_to_u8_lut_opt(hex) ::
 
 function hex_to_u8_lut_one(hex) ::
   hex = hex.replace(/\W|_/g, '')
-  if 2 & hex.length ::
+  if 1 & hex.length ::
     hex = '0'+hex // pad odd-length
 
   const len = hex.length >> 1
@@ -121,7 +121,7 @@ function hex_to_u8_lut_one(hex) ::
 
 function hex_to_u8_lut_one_opt(hex) ::
   hex = hex.replace(/\W|_/g, '')
-  if 2 & hex.length ::
+  if 1 & hex.length ::
     hex = '0'+hex // pad odd-length
 
   const len = hex.length >> 1, u8 = new Uint8Array(len)
@@ -141,7 +141,7 @@ const _lut_hex_low_map = @!
 
 function hex_to_u8_map(hex) ::
   hex = hex.replace(/\W|_/g, '')
-  if 2 & hex.length ::
+  if 1 & hex.length ::
     hex = '0'+hex // pad odd-length
 
   const len = hex.length >> 1
@@ -159,7 +159,7 @@ const _lut_hex = _lut_u8hex.reduce @
 
 function hex_to_u8_lut_full(hex) ::
   hex = hex.replace(/\W|_/g, '')
-  if 2 & hex.length ::
+  if 1 & hex.length ::
     hex = '0'+hex // pad odd-length
 
   const len = hex.length >> 1
@@ -170,7 +170,7 @@ function hex_to_u8_lut_full(hex) ::
 
 function hex_to_u8_lut_full_slice(hex) ::
   hex = hex.replace(/\W|_/g, '')
-  if 2 & hex.length ::
+  if 1 & hex.length ::
     hex = '0'+hex // pad odd-length
 
   const len = hex.length >> 1
@@ -192,7 +192,7 @@ const _rx_cu8 = sz => _codePointAt.call(sz, 0)
 
 function hex_to_u8_rx(hex) ::
   hex = hex.replace(/\W|_/g, '')
-  if 2 & hex.length ::
+  if 1 & hex.length ::
     hex = '0'+hex // pad odd-length
 
   hex = hex.replace @ /../g, _lut_hex_rx_xform

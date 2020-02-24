@@ -23,7 +23,7 @@ const _lut_hexu8 = @{}
 
 export function hex_to_u8(hex) ::
   hex = hex.replace(/\W|_/g, '')
-  if 2 & hex.length ::
+  if 1 & hex.length ::
     hex = '0'+hex // pad odd-length
 
   const len = hex.length >> 1, u8 = new Uint8Array(len)

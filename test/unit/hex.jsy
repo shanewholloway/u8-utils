@@ -4,11 +4,26 @@ const { u8_to_hex, hex_to_u8 } = require('u8-utils')
 describe @ 'hex', @=> ::
   const tc_u8 = new Uint8Array([75,245,231,251,102,40,5,58,69,131,9,108,85,174,67,161,207,139,2,3])
   const tc_hex = '4b f5 e7 fb 66 28 05 3a 45 83 09 6c 55 ae 43 a1 cf 8b 02 03'
+  const tc_hex_other = '4b:f5:e7:fb:66:28:05:3a:45:83:09:6c:55:ae:43:a1:cf:8b:02:03'
 
   it @ 'u8_to_hex', @=> ::
     const hex = u8_to_hex(tc_u8, ' ')
     assert.equal(tc_hex, hex)
 
+  it @ 'u8_to_hex with ":"', @=> ::
+    const hex = u8_to_hex(tc_u8, ':')
+    assert.equal(tc_hex_other, hex)
+
   it @ 'hex_to_u8', @=> ::
     const u8 = hex_to_u8(tc_hex)
+    assert.deepEqual(tc_u8, u8)
+
+  it @ 'hex_to_u8 with ":"', @=> ::
+    const u8 = hex_to_u8(tc_hex_other)
+    assert.deepEqual(tc_u8, u8)
+
+
+  it @ 'cbor example', @=> ::
+    const u8 = hex_to_u8('d820 76687474703a2f2f7777772e6578616d706c652e636f6d')
+    const tc_u8 = new Uint8Array([216,32,118,104,116,116,112,58,47,47,119,119,119,46,101,120,97,109,112,108,101,46,99,111,109])
     assert.deepEqual(tc_u8, u8)

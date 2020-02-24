@@ -8,7 +8,7 @@
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.0.0",
     "benchmark": "^2.1.4",
-    "rollup": "^1.31.0",
+    "rollup": "^1.31.1",
     "rollup-plugin-jsy-lite": "^1.5.1"
   },
   "scripts": {
