@@ -3,13 +3,13 @@
   "dependencies": {
     "u8-utils": "file:..",
     "chai": "^4.2.0",
-    "mocha": "^7.0.1"
+    "mocha": "^7.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^7.0.0",
     "benchmark": "^2.1.4",
     "rollup": "^1.31.1",
-    "rollup-plugin-jsy-lite": "^1.5.1"
+    "rollup-plugin-jsy-lite": "^1.5.3"
   },
   "scripts": {
     "prebuild": "test -d ./node_modules || npm -s install",
